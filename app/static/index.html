@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>StudyMate — read anything, understand everything</title>
+<meta name="asset-version" content="__ASSET_V__" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#131311" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="StudyMate" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png" />
+  <link rel="icon" href="/static/icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="stylesheet" href="/static/app.css?v=__ASSET_V__" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><path d='M9 10h14M9 16h9M9 22h11' stroke='white' stroke-width='2.4' stroke-linecap='round'/></svg>" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ======================= top bar ======================= -->
+  <header class="top">
+    <button class="brand" id="brand" title="Home">
+      <span class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M9 8h6M9 12h4"/></svg>
+      </span>
+      <span class="brandtext">StudyMate<small>READ · UNDERSTAND · RECALL</small></span>
+    </button>
+
+    <div id="filechip" class="filechip" hidden>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+      <b id="fname">—</b>
+      <span class="meta" id="fmeta"></span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button class="btn" id="btn-library">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Library
+    </button>
+    <button class="btn primary" id="btn-open">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      Open material
+    </button>
+    <button class="btn ghost install" id="btn-install" hidden title="Install StudyMate on this device">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
+      <span>Install</span>
+    </button>
+    <button class="btn icon ghost" id="btn-theme" title="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button class="btn ghost" id="btn-settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 7 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 14a1.7 1.7 0 0 0-1.6-1H1a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 2.6 7a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 7 2.6h.1A1.7 1.7 0 0 0 8 1V1a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 14 2.6a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.4 7v.1A1.7 1.7 0 0 0 21 8h.1a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>
+      <span id="keylabel">Add AI key</span>
+    </button>
+  </header>
+
+  <!-- ======================= HOME ======================= -->
+  <section class="home" id="home">
+    <div class="home-inner">
+      <div class="hero">
+        <div class="pill">AI study companion · works offline, better with a key</div>
+        <h1>Read anything.<br><span class="grad">Understand everything.</span></h1>
+        <p class="lede">Open a lecture note, textbook chapter, slide deck, dataset or scan. Read it page after page like any
+          document viewer — then drag a box around the part that confuses you and ask your study companion to explain it.</p>
+
+        <div class="dropzone" id="dropzone">
+          <div class="dz-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg>
+          </div>
+          <h2>Drop a file here</h2>
+          <p>PDF, Word, PowerPoint, text, Markdown, CSV, Excel, code, or a photo of a page — up to 60 MB.</p>
+          <div class="dz-actions">
+            <button class="btn primary big" id="btn-browse">Choose a file</button>
+            <button class="btn big" id="btn-sample" data-file="neural-networks.pdf" data-title="Neural-Networks-Study-Guide.pdf" data-kind="application/pdf">Sample PDF</button>
+            <button class="btn big" id="btn-sample2" data-file="neural-networks.md" data-title="Neural-Networks-Study-Guide.md" data-kind="text/markdown">Sample notes</button>
+          </div>
+          <div class="formats">
+            <span>PDF</span><span>DOCX</span><span>PPTX</span><span>TXT</span><span>MD</span><span>CSV</span><span>XLSX</span><span>PNG/JPG</span><span>code</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent" id="recent" hidden>
+        <div class="recent-head">
+          <h3>Pick up where you left off</h3>
+          <button class="btn ghost" id="btn-all">See all</button>
+        </div>
+        <div class="cards" id="cards"></div>
+      </div>
+
+      <div class="how">
+        <div class="step">
+          <span class="num">1</span>
+          <b>Open &amp; read</b>
+          <p>Full-width continuous pages, zoom, find, jump to any section. Exactly like the viewer you already know.</p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <b>Mark what's unclear</b>
+          <p>Highlight a sentence, or press the <em>select area</em> button and drag a box over a diagram, table or paragraph.</p>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <b>Ask Sage</b>
+          <p>A drawer slides in with your selection attached. Explain, simplify, quiz yourself — then collapse it and keep reading.</p>
+        </div>
+      </div>
+
+      <p class="home-foot">
+        No API key? The companion still summarises, ranks key concepts, builds glossaries and generates quizzes straight
+        from your file. <button class="linkbtn" id="link-key">Add a free AI key</button> for real conversational answers.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= VIEWER ======================= -->
+<!-- library: a full page, not a popup -->
+<section class="libpage" id="libpage" hidden>
+  <div class="lib-inner">
+    <div class="lib-top">
+      <button class="btn icon ghost" id="lib-back" title="Back to home (Esc)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="lib-title">
+        <h1>Library</h1>
+        <span id="libcount">—</span>
+        <button class="lib-device" id="libdevice" title="Give this device a name"></button>
+      </div>
+      <label class="find lib-find">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="libsearch" placeholder="Search your materials" />
+      </label>
+      <button class="btn primary" id="lib-open">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Add material
+      </button>
+    </div>
+    <div class="libfilter" id="libfilter">
+      <button class="chip on" data-scope="all">Everyone</button>
+      <button class="chip" data-scope="mine">Only mine</button>
+    </div>
+    <div class="libgrid" id="libgrid"></div>
+  </div>
+</section>
+
+  <section class="viewer" id="viewer" hidden>
+    <div class="docbar">
+      <button class="btn icon ghost" id="btn-back" title="Back to home (Esc)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="pager" id="pager">
+        <span id="pageind">1</span><span class="of">/ <span id="pagetotal">1</span></span>
+      </div>
+      <select id="jump" class="select" title="Jump to page or section"></select>
+      <div class="spacer"></div>
+      <label class="find" id="findwrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="find" placeholder="Find in file  ⌘K" />
+        <span class="count" id="findcount"></span>
+      </label>
+      <div class="seg" id="viewseg">
+        <button data-view="original" aria-pressed="true">Original</button>
+        <button data-view="text" aria-pressed="false">Text</button>
+      </div>
+      <button class="btn icon ghost" id="zoomout" title="Zoom out">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="btn icon ghost" id="zoomin" title="Zoom in">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-3.5-3.5"/></svg>
+      </button>
+    </div>
+
+    <div class="stagerow">
+      <div class="stage" id="stage">
+        <div class="pages" id="pages"></div>
+        <div class="emptyend" id="emptyend" hidden>End of document</div>
+      </div>
+
+      <!-- floating rail -->
+      <div class="rail" id="rail">
+        <button class="railbtn" id="btn-region" title="Select an area of the page (R)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/></svg>
+          <span>Select area</span>
+        </button>
+        <button class="railbtn accent" id="btn-agent" title="Ask Sage (A)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg>
+          <span>Ask Sage</span>
+          <i class="badge" id="agentbadge" hidden></i>
+        </button>
+      </div>
+
+      <!-- agent drawer -->
+      <aside class="drawer" id="drawer" aria-hidden="true">
+        <div class="drawer-grip" id="grip" title="Drag to resize · double-click for 50%"></div>
+
+        <div class="drawer-head">
+          <div class="agent-id">
+            <span class="avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"/></svg>
+            </span>
+            <div>
+              <b>Sage</b>
+              <span class="sub" id="modesub">study companion</span>
+            </div>
+            <span class="dot" id="modedot"></span>
+          </div>
+          <button class="btn icon ghost" id="btn-collapse" title="Collapse (Esc)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="drawer-tabs" id="drawer-tabs">
+          <button data-tab="chat" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-8 8H8l-5 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg>
+            Chat
+          </button>
+          <button data-tab="files" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            Workspace
+            <span class="tabcount" id="wscount" hidden>0</span>
+          </button>
+        </div>
+
+        <!-- chat -->
+        <div class="tabpane" id="pane-chat">
+          <div class="chips" id="chips">
+            <button class="chip" data-mode="explain">Explain selection</button>
+            <button class="chip" data-mode="summary">Summarise</button>
+            <button class="chip" data-mode="concepts">Key concepts</button>
+            <button class="chip" data-mode="quiz">Quiz me</button>
+            <button class="chip" data-mode="glossary">Glossary</button>
+            <button class="chip" data-mode="flashcards">Flashcards</button>
+          </div>
+
+          <div class="thread" id="thread"></div>
+
+          <div class="composer">
+            <div class="attach" id="attach">
+              <div class="atch-thumb" id="atchthumb"></div>
+              <div class="atch-txt">
+                <b id="atchtitle">Selection</b>
+                <span id="atchsub"></span>
+              </div>
+              <button id="attachclear" title="Remove">✕</button>
+            </div>
+            <div class="inputbox">
+              <textarea id="ask" rows="1" placeholder="Ask Sage about this file…"></textarea>
+              <button class="send" id="send" title="Send (Enter)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+              </button>
+            </div>
+            <div class="keynudge" id="keynudge" hidden>
+              Running offline. <button class="linkbtn" id="keynudge-btn">Get a free AI key →</button> takes about a minute.
+            </div>
+            <div class="hintrow">
+              <span id="hintleft">Enter to send · Shift+Enter newline</span>
+              <span id="hintright"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- workspace -->
+        <div class="tabpane" id="pane-files" hidden>
+          <div class="wsp-head">
+            <div class="wsp-title">
+              <b id="wsp-doc">Workspace</b>
+              <span id="wsp-sub">Everything for this material lives here</span>
+            </div>
+            <div class="wsp-actions">
+              <button class="btn" id="ws-upload" title="Add a file to this material's workspace">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                Add file
+              </button>
+              <button class="btn" id="ws-fromlib" title="Take a file from your library">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M13 8v6M10 11h6"/></svg>
+                From library
+              </button>
+              <button class="btn" id="ws-savechat" title="Save this conversation as a note">Save chat</button>
+            </div>
+          </div>
+          <div class="wsp-list" id="wslist"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<!-- floating action bars -->
+<div class="pop regionbar" id="pop">
+  <span class="rlabel" id="plabel">Text selected</span>
+  <button data-act="explain">Explain</button>
+  <button data-act="simple">Simplify</button>
+  <button data-act="quiz">Quiz me</button>
+  <button data-act="translate">Key terms</button>
+  <button data-act="ask" class="primary">Ask Sage →</button>
+  <button data-act="clear" class="x" title="Clear selection">✕</button>
+</div>
+
+<div class="pop regionbar" id="regionbar">
+  <span class="rlabel" id="rlabel">Area selected</span>
+  <button data-ract="explain">Explain</button>
+  <button data-ract="simple">Simplify</button>
+  <button data-ract="quiz">Quiz me</button>
+  <button data-ract="ask" class="primary">Ask Sage →</button>
+  <button data-ract="clear" class="x" title="Clear">✕</button>
+</div>
+
+<div class="modehint" id="modehint">
+  <span>Drag a box around anything on the page</span>
+  <button id="modecancel">Cancel (Esc)</button>
+</div>
+
+<input type="file" id="fileinput" class="vhidden" accept=".pdf,.docx,.pptx,.txt,.md,.markdown,.csv,.tsv,.xlsx,.png,.jpg,.jpeg,.webp,.py,.js,.ts,.json,.html,.css,.java,.c,.cpp,.go,.rs,.sql,.ipynb" />
+
+<!-- settings -->
+<div class="scrim" id="settings">
+  <div class="modal">
+    <header>
+      <h2>Sage · AI settings</h2>
+      <button class="btn icon ghost" data-close="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="content">
+      <div class="status" id="keystatus"></div>
+
+      <!-- what a visitor needs: one free key, one minute -->
+      <div class="freebox" id="freebox">
+        <b>Get a free key in a minute</b>
+        <span id="freetext">Pick a provider below, tap “Get a free key”, sign in with Google or GitHub,
+          paste the key here. No card, no billing.</span>
+      </div>
+
+      <div class="field">
+        <label for="provider">Provider</label>
+        <select id="provider">
+          <option value="gemini">Google Gemini — free tier</option>
+          <option value="groq">Groq — free tier</option>
+          <option value="openrouter">OpenRouter — free models</option>
+          <option value="cerebras">Cerebras — free tier</option>
+          <option value="mistral">Mistral — free tier</option>
+          <option value="openai">OpenAI (paid)</option>
+          <option value="anthropic">Anthropic Claude (paid)</option>
+          <option value="custom">Custom / OpenAI-compatible (Ollama, LM Studio…)</option>
+        </select>
+        <div class="getkey">
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" id="getkey">Get a free key →</a>
+          <span id="provnote">Free API key in ~1 minute with a Google account. Best default.</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="apikey">API key</label>
+        <input id="apikey" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false" />
+        <div class="help">Kept in this browser's local storage and sent from your machine to the provider. The server never writes it to disk.</div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="model">Model</label>
+          <input id="model" placeholder="default" autocomplete="off" spellcheck="false" list="modellist" />
+          <datalist id="modellist"></datalist>
+        </div>
+        <div class="field">
+          <label for="baseurl">Base URL (custom only)</label>
+          <input id="baseurl" placeholder="http://localhost:11434/v1" autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="level">Explain at the level of</label>
+        <select id="level">
+          <option value="student">A university student</option>
+          <option value="beginner">A complete beginner (high-school)</option>
+          <option value="expert">A specialist who wants precision</option>
+        </select>
+      </div>
+      <div class="help">Without a key, Sage runs in <b>offline mode</b>: extractive summaries, key-concept ranking, glossaries,
+        cloze quizzes and quoted answers pulled straight from your document. Cropped regions work too when they have a text layer.</div>
+    </div>
+    <div class="sitekey" id="sitekey">
+      <div class="sitekey-head">
+        <b>Site key — let everyone use AI without their own key</b>
+        <span id="sitekey-state">Not set</span>
+      </div>
+      <div class="sitekey-body" id="sitekey-body">
+        <p class="help">Paste one free key here and every visitor to this site gets real AI answers.
+          It is stored on the server (never shown to visitors) and protected by a passcode you choose.
+          Visitors can still bring their own key, which takes priority.</p>
+        <div class="row2">
+          <div class="field">
+            <label for="skey">API key</label>
+            <input id="skey" type="password" placeholder="paste the free key" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="field">
+            <label for="skprov">Provider</label>
+            <select id="skprov">
+              <option value="gemini">Google Gemini — free tier</option>
+              <option value="groq">Groq — free tier</option>
+              <option value="openrouter">OpenRouter — free models</option>
+              <option value="cerebras">Cerebras — free tier</option>
+              <option value="mistral">Mistral — free tier</option>
+              <option value="openai">OpenAI (paid)</option>
+              <option value="anthropic">Anthropic Claude (paid)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="smodel">Model (optional)</label>
+          <input id="smodel" placeholder="leave empty for the provider default" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="field">
+          <label for="skprov2">Backup free key (optional — used when the first runs out)</label>
+          <div class="row2">
+            <select id="skprov2"></select>
+            <input id="skey2" placeholder="second free key (e.g. Groq)" autocomplete="off" spellcheck="false" />
+          </div>
+          <p class="hint" id="sk2note">Free tiers have a daily limit. Add a second free key and Sage switches to it automatically instead of dropping to offline mode.</p>
+        </div>
+        <div class="field" id="sbase-field" hidden>
+          <label for="sbase">Base URL (self-hosted / custom only)</label>
+          <input id="sbase" placeholder="http://localhost:11434/v1" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="field">
+          <label for="spass">Owner passcode</label>
+          <input id="spass" type="password" placeholder="needed again to change or remove the key" autocomplete="new-password" />
+        </div>
+        <div class="sitekey-acts">
+          <button class="btn" id="sk-save">Save site key</button>
+          <button class="btn" id="sk-test">Test the site key</button>
+          <button class="btn" id="sk-clear">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <button class="btn" id="testkey">Test this key</button>
+      <button class="btn" id="clearkey">Use offline</button>
+      <button class="btn primary" id="savekey">Save for this browser only</button>
+    </footer>
+  </div>
+</div>
+
+<!-- pick a material from the library to add to a workspace -->
+<div class="scrim" id="libpicker">
+  <div class="modal">
+    <header>
+      <h2>Add from library</h2>
+      <button class="btn icon ghost" data-close="libpicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="content">
+      <p class="pick-note" id="pick-note">Pick a material to copy into this workspace.</p>
+      <div class="liblist" id="picklist"></div>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="wsfile" class="vhidden" />
+
+<div class="scrim" id="preview">
+  <div class="modal wide">
+    <header>
+      <h2 id="pv-name">File</h2>
+      <button class="btn icon ghost" data-close="preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="content"><pre class="pv-body" id="pv-body"></pre></div>
+    <footer>
+      <button class="btn" id="pv-download">Download</button>
+      <button class="btn primary" id="pv-open">Open in reader</button>
+    </footer>
+  </div>
+</div>
+
+<div class="loading" id="loading"><div class="loadbox"><div class="spinner"></div><p id="loadtxt">Reading your file…</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="/static/app.js?v=__ASSET_V__"></script>
+</body>
+</html>

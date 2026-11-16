@@ -1,0 +1,12 @@
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+pymupdf>=1.24
+python-docx>=1.1
+python-pptx>=0.6.23
+openpyxl>=3.1
+httpx>=0.27
+tzdata>=2024.1        # Windows has no system timezone database
+# OCR: reads the words out of screenshots, photos and scanned pages (~100 MB, optional)
+rapidocr-onnxruntime>=1.3.24
+pillow>=10.0

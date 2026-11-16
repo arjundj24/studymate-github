@@ -1,0 +1,24 @@
+# runtime data — never commit documents or keys
+data/
+uploads/
+*.log
+logs/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.python-version
+
+# secrets
+.env
+.env.*
+site_key.json
+*.pem
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

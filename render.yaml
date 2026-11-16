@@ -1,0 +1,22 @@
+# Render blueprint — free web service, no credit card required.
+# Render reads this file when you pick "New → Blueprint" and points it at the repo.
+services:
+  - type: web
+    name: studymate
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --app-dir app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: PYTHONUTF8
+        value: "1"
+      # OCR reads screenshots and scans. It needs ~300 MB of RAM, which is most
+      # of the free 512 MB. Set to "0" if the service ever restarts on memory.
+      - key: STUDYMATE_OCR
+        value: "1"
+      # Each visitor brings their own free key; no shared key is stored here.
+      - key: STUDYMATE_DAILY_LIMIT
+        value: "250"
